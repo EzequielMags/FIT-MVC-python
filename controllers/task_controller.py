@@ -8,30 +8,26 @@ class TaskController:
     @staticmethod
     def list_tasks():
         # TODORESOLVIDO buscar todas as tarefas do banco de dados
-        tasks = Task.query.all()
         tasks = None 
+        tasks = db.session.query(Task).all()
         return render_template("tasks.html", tasks=tasks)
 
     @staticmethod
     def create_task():
         
         if request.method == "POST":
-            
+
             # TODORESOLVIDO capturar dados do formulário (title, description, user_id)
             title = request.form.get('title')
             description = request.form.get('description')
             user_id = request.form.get('user_id')
+
             # TODORESOLVIDO criar um novo objeto Task com os dados capturados
-            nova_task = {
-                'title': title,
-                'description': description,
-                'user_id': user_id
-            }
+            task = Task(title=title, description=description, user_id=int(user_id))
 
             # TODORESOLVIDO adicionar no db.session e dar commit
-            db.session.add(nova_task)
+            db.session.add(task)
             db.session.commit()
-            pass
 
             return redirect(url_for("list_tasks"))
 

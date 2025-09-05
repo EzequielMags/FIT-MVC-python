@@ -6,10 +6,10 @@ class Task(db.Model):
     __tablename__ = "tasks"
 
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(VARCHAR(100), nullable=False)
-    description = db.Column(VARCHAR(200), nullable=False)
-    user_id = db.Column(Integer, ForeignKey('users.id'), nullable=False)
-    status = db.Column(VARCHAR(50), default='Pendente')
+    title = db.Column(db.VARCHAR(100), nullable=False)
+    description = db.Column(db.VARCHAR(200), nullable=False)
+    user_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
+    status = db.Column(db.VARCHAR(50), default='Pendente')
     user = relationship('User', back_populates='tasks')
     # TODORESOLVIDO: Define os campos e o relacionamento da tabela Task
     # - id: chave primária da tarefa
