@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Criar Nova Tarefa</h2>
+<form method="POST">
+    <label for="title">Título:</label><br>
+    <input type="text" name="title" required><br><br>
+
+    <label for="description">Descrição:</label><br>
+    <textarea name="description"></textarea><br><br>
+
+    <label for="user_id">Usuário:</label><br>
+    <select name="user_id" required>
+        {% for user in users %}
+            <option value="{{ user.id }}">{{ user.name }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <button type="submit">Criar</button>
+</form>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Minhas Tarefas</h2>
+<a href="{{ url_for('create_task') }}">+ Nova Tarefa</a>
+<table border="1" cellpadding="5">
+    <tr>
+        <th>Título</th>
+        <th>Descrição</th>
+        <th>Status</th>
+        <th>Usuário</th>
+        <th>Ações</th>
+    </tr>
+    {% for task in tasks %}
+    <tr>
+        <td>{{ task.title }}</td>
+        <td>{{ task.description }}</td>
+        <td>{{ task.status }}</td>
+        <td>{{ task.user.name }}</td>
+        <td>
+    <!-- Formulário para atualizar status -->
+    <form action="{{ url_for('update_task_status', task_id=task.id) }}" method="post" style="display:inline;">
+        {% if task.status == 'Pendente' %}
+            <button type="submit">Entregar</button>
+        {% elif task.status == 'Concluído' %}
+            <button type="submit">Reabrir</button>
+        {% endif %}
+    </form>
+
+    <!-- Formulário para excluir -->
+    <form action="{{ url_for('delete_task', task_id=task.id) }}" method="post" style="display:inline;">
+        <button type="submit">Excluir</button>
+    </form>
+</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

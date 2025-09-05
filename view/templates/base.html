@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciador de Tarefas</title>
+</head>
+<body>
+    <h1>Gerenciador de Tarefas</h1>
+    <nav>
+        <a href="{{ url_for('list_tasks') }}">Tarefas</a> |
+        <a href="{{ url_for('index') }}">Usuários</a>
+    </nav>
+    <hr>
+    {% block content %}{% endblock %}
+</body>
+</html>
