@@ -1,5 +1,7 @@
 import os
-from flask import Flask
+from flask import Flask, jsonify, request
+from flasgger import Swagger
+
 from config import Config # importa as 
 from controllers.user_controller import UserController
 from controllers.task_controller import TaskController
@@ -7,6 +9,12 @@ from models.user import db
 
 app = Flask(__name__, template_folder=os.path.join('view', 'templates'))
 app.config.from_object(Config)
+
+
+
+ 
+# inicializa Swagger (UI disponível em /apidocs)
+swagger = Swagger(app)
 
 # inicializa o banco de dados
 db.init_app(app)
@@ -24,6 +32,9 @@ app.add_url_rule("/tasks", view_func=TaskController.list_tasks, endpoint="list_t
 app.add_url_rule("/tasks/new", view_func=TaskController.create_task, methods=["GET", "POST"], endpoint="create_task")
 app.add_url_rule("/tasks/update/<int:task_id>", view_func=TaskController.update_task_status, methods=["POST"], endpoint="update_task_status")
 app.add_url_rule("/tasks/delete/<int:task_id>", view_func=TaskController.delete_task, methods=["POST"], endpoint="delete_task")
+app.add_url_rule("/tasks", view_func=TaskController.list_tasks, methods=["GET"], endpoint="list_tasks")
+app.add_url_rule("/users", view_func=UserController.list_users_api, methods=["GET"], endpoint="list_users")
+app.add_url_rule("/users", view_func=UserController.create_user_api, methods=["POST"], endpoint="create_user")
 
 
 if __name__ == '__main__':

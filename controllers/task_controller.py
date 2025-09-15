@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request,jsonify ,redirect, url_for,Flask
 from models import db
 from models.task import Task
 from models.user import User
@@ -16,7 +16,7 @@ class TaskController:
     def create_task():
         
         if request.method == "POST":
-
+            
             # TODORESOLVIDO capturar dados do formulário (title, description, user_id)
             title = request.form.get('title')
             description = request.form.get('description')
